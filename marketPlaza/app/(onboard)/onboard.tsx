@@ -3,6 +3,7 @@ import Slide1 from "@/components/Onboard/Slide1";
 import Slide2 from "@/components/Onboard/Slide2";
 import Slide3 from "@/components/Onboard/Slide3";
 import { LinearGradient } from "expo-linear-gradient";
+import { useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
@@ -10,6 +11,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 const Onboard = () => {
   const [step, setStep] = React.useState(1);
+  const router = useRouter();
 
   const navigateToNextScreen = () => {
     setStep((prev) => {
@@ -20,6 +22,10 @@ const Onboard = () => {
       }
       return next;
     });
+  };
+
+  const handleNavigateToAuth = () => {
+    router.replace("/(auth)/intro");
   };
 
   return (
@@ -121,8 +127,7 @@ const Onboard = () => {
             title="Get Started"
             className="bg-[#FF5E00] text-[#FFEDE3] text-2xl"
             onPress={() => {
-              console.log("Onboarding complete, navigate to main app");
-              // your navigation logic here (e.g., router.replace("/home"))
+              handleNavigateToAuth()
             }}
           />
         </View>
