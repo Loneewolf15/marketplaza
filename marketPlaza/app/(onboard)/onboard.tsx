@@ -10,133 +10,123 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 const Onboard = () => {
   const [step, setStep] = React.useState(1);
-  console.log(step);
 
   const navigateToNextScreen = () => {
-    // Logic to navigate to the next screen
-    console.log("Navigate to the next screen");
-    setStep(step + 1);
-    if (step === 4) {
-      // Final step, navigate to main app or another screen
-      console.log("Onboarding complete, navigate to main app");
-      // Add your navigation logic here
-    }
+    setStep((prev) => {
+      const next = Math.min(prev + 1, 4);
+      if (next === 4 && prev === 4) {
+        // Final step reached; navigate
+        console.log("Onboarding complete, navigate to main app");
+      }
+      return next;
+    });
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-white px-10">
+    <SafeAreaView className="flex-1 bg-white">
       <StatusBar style="dark" />
 
-      <View className="justify-center gap-5 flex-1">
-        {step <= 3 && (
-          <TouchableOpacity onPress={() => setStep(4)}>
-            <Text className="font-poppins-medium text-[#FF5E00] self-end text-2xl">
-              Skip
-            </Text>
-          </TouchableOpacity>
-        )}
-
-        {step === 1 && <Slide1 />}
-        {step === 2 && <Slide2 />}
-        {step === 3 && <Slide3 />}
-
-        <View className="gap-5 mt-5">
-          {step === 1 && (
-            <View className="flex-row justify-center gap-2">
-              <View className="h-[10px] w-5 rounded-full bg-[#FF5E00]" />
-
-              <LinearGradient
-                colors={["#FFEDE3", "#FFA658"]}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
-                style={{
-                  height: 10,
-                  width: 32, // same as w-8
-                  borderRadius: 9999, // same as rounded-full
-                }}
-              />
-
-              <View className="h-[10px] w-5 rounded-full bg-[#FFA658]" />
-            </View>
+      {/* Main content padding; extra bottom padding to avoid overlap when step=4 */}
+      <View className={`flex-1 px-10 ${step === 4 ? "pb-24" : ""}`}>
+        <View className="justify-center gap-5 flex-1">
+          {step <= 3 && (
+            <TouchableOpacity onPress={() => setStep(4)}>
+              <Text className="font-poppins-medium text-[#FF5E00] self-end text-2xl">
+                Skip
+              </Text>
+            </TouchableOpacity>
           )}
 
-          {step === 2 && (
-            <View className="flex-row justify-center gap-2">
-              <View className="h-[10px] w-5 rounded-full bg-[#FFEDE3]" />
+          {step === 1 && <Slide1 />}
+          {step === 2 && <Slide2 />}
+          {step === 3 && <Slide3 />}
 
-              <LinearGradient
-                colors={["#FF5E00", "#FFA658"]}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
-                style={{
-                  height: 10,
-                  width: 32, // same as w-8
-                  borderRadius: 9999, // same as rounded-full
-                }}
-              />
+          {/* Indicators */}
+          <View className="gap-5 mt-5">
+            {step === 1 && (
+              <View className="flex-row justify-center gap-2">
+                <View className="h-[10px] w-5 rounded-full bg-[#FF5E00]" />
+                <LinearGradient
+                  colors={["#FFEDE3", "#FFA658"]}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 0 }}
+                  style={{ height: 10, width: 32, borderRadius: 9999 }}
+                />
+                <View className="h-[10px] w-5 rounded-full bg-[#FFA658]" />
+              </View>
+            )}
 
-              <View className="h-[10px] w-5 rounded-full bg-[#FFA658]" />
-            </View>
-          )}
-          
-          {step === 3 && (
-            <View className="flex-row justify-center gap-2">
-              <View className="h-[10px] w-5 rounded-full bg-[#FFA658]" />
+            {step === 2 && (
+              <View className="flex-row justify-center gap-2">
+                <View className="h-[10px] w-5 rounded-full bg-[#FFEDE3]" />
+                <LinearGradient
+                  colors={["#FF5E00", "#FFA658"]}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 0 }}
+                  style={{ height: 10, width: 32, borderRadius: 9999 }}
+                />
+                <View className="h-[10px] w-5 rounded-full bg-[#FFA658]" />
+              </View>
+            )}
 
-              <LinearGradient
-                colors={["#FFA658", "#FFEDE3"]}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
-                style={{
-                  height: 10,
-                  width: 32, // same as w-8
-                  borderRadius: 9999, // same as rounded-full
-                }}
-              />
+            {step === 3 && (
+              <View className="flex-row justify-center gap-2">
+                <View className="h-[10px] w-5 rounded-full bg-[#FFA658]" />
+                <LinearGradient
+                  colors={["#FFA658", "#FFEDE3"]}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 0 }}
+                  style={{ height: 10, width: 32, borderRadius: 9999 }}
+                />
+                <View className="h-[10px] w-5 rounded-full bg-[#FF5E00]" />
+              </View>
+            )}
 
-              <View className="h-[10px] w-5 rounded-full bg-[#FF5E00]" />
-            </View>
-          )}
+            {step === 4 && (
+              <View className="flex-row justify-center gap-2">
+                <View className="h-[10px] w-5 rounded-full bg-[#FFA658]" />
+                <LinearGradient
+                  colors={["#FFA658", "#FF5E00"]}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 0 }}
+                  style={{ height: 10, width: 32, borderRadius: 9999 }}
+                />
+                <LinearGradient
+                  colors={["#FFA658", "#FFEDE3"]}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 0 }}
+                  style={{ height: 10, width: 20, borderRadius: 9999 }}
+                />
+              </View>
+            )}
 
-          {step === 4 && (
-            <View className="flex-row justify-center gap-2">
-              <View className="h-[10px] w-5 rounded-full bg-[#FFA658]" />
-
-              <LinearGradient
-                colors={["#FFA658", "#FF5E00"]}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
-                style={{
-                  height: 10,
-                  width: 32, // same as w-8
-                  borderRadius: 9999, // same as rounded-full
-                }}
-              />
-
-              <LinearGradient
-                colors={["#FFA658", "#FFEDE3"]}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
-                style={{
-                  height: 10,
-                  width: 20, // same as w-8
-                  borderRadius: 9999, // same as rounded-full
-                }}
-              />
-            </View>
-          )}
-
-          <View className="">
-            <Button
-              title={step <= 3 ? "Next" : "Get Started"}
-              className="bg-[#FF5E00] text-[#FFEDE3] text-2xl"
-              onPress={() => {
-                navigateToNextScreen();
-              }}
-            />
+            {/* "Next" only for steps 1–3, inline (not fixed) */}
+            {step < 4 && (
+              <View>
+                <Button
+                  title="Next"
+                  className="bg-[#FF5E00] text-[#FFEDE3] text-2xl"
+                  onPress={navigateToNextScreen}
+                />
+              </View>
+            )}
           </View>
         </View>
       </View>
+
+      {/* Fixed bottom "Get Started" ONLY when step === 4 */}
+      {step === 4 && (
+        <View className="absolute left-0 right-0 bottom-10 px-10 pb-6">
+          <Button
+            title="Get Started"
+            className="bg-[#FF5E00] text-[#FFEDE3] text-2xl"
+            onPress={() => {
+              console.log("Onboarding complete, navigate to main app");
+              // your navigation logic here (e.g., router.replace("/home"))
+            }}
+          />
+        </View>
+      )}
     </SafeAreaView>
   );
 };
