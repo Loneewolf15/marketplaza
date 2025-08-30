@@ -33,7 +33,7 @@ const Onboard = () => {
       <StatusBar style="dark" />
 
       {/* Main content padding; extra bottom padding to avoid overlap when step=4 */}
-      <View className={`flex-1 px-10 ${step === 4 ? "pb-24" : ""}`}>
+      <View className={`flex-1 px-5 ${step === 4 ? "pb-24" : ""}`}>
         <View className="justify-center gap-5 flex-1">
           {step <= 3 && (
             <TouchableOpacity onPress={() => setStep(4)}>

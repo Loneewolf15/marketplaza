@@ -8,6 +8,9 @@ module.exports = {
         "poppins-medium": ["Poppins_500Medium"],
         "poppins-semibold": ["Poppins_600SemiBold"],
         "poppins-extraLight": ["Poppins_200ExtraLight"],
+
+        "inter-medium": ["Inter_500Medium"],
+        "inter-regular": ["Inter_400Regular"],
       },
     },
   },
